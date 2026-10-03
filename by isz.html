@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ISZ · الجدول الأسبوعي للحصص</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&family=Cairo:wght@400;500;600;700;800&family=Orbitron:wght@700;900&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1f2a37;
+    --ink-soft: #4b5a6a;
+    --paper: #ffffff;
+    --mist: #f4f7f9;
+    --line: #dbe4ea;
+    --teal-deep: #0f6e6b;
+    --teal: #2aa198;
+    --teal-tint: #e0f2f1;
+    --blue-tint: #dbeafe;
+    --gray-break: #eceff3;
+    --gray-break-text: #7a8a99;
+    --bg-grad: linear-gradient(160deg, #eef4f6 0%, #f7fafa 55%, #eef2fb 100%);
+    --head-grad: linear-gradient(120deg, #f2f7f8 0%, #eef1fb 100%);
+    --drawer-head-grad: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 100%);
+    --shadow-sheet: 0 24px 60px -20px rgba(15, 110, 107, 0.22), 0 4px 14px rgba(31, 42, 55, 0.06);
+  }
+
+  [data-theme="dark"] {
+    --ink: #e8eef3;
+    --ink-soft: #a3b1be;
+    --paper: #1a222c;
+    --mist: #232d38;
+    --line: #34404d;
+    --teal-deep: #4ecdc4;
+    --teal: #2aa198;
+    --teal-tint: #1e3a3a;
+    --blue-tint: #1e2e4a;
+    --gray-break: #2a3441;
+    --gray-break-text: #8a9aab;
+    --bg-grad: linear-gradient(160deg, #0f1720 0%, #131c26 55%, #0f1720 100%);
+    --head-grad: linear-gradient(120deg, #1a222c 0%, #1e2833 100%);
+    --drawer-head-grad: linear-gradient(135deg, #0f6e6b 0%, #2aa198 100%);
+    --shadow-sheet: 0 24px 60px -20px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg-grad);
+    min-height: 100vh;
+    padding: 48px 24px;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+
+  /* ===================== الشيت ===================== */
+  .sheet {
+    width: 100%;
+    max-width: 1180px;
+    background: var(--paper);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sheet);
+    overflow: hidden;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .sheet::before {
+    content: "ISZ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 320px;
+    font-weight: 900;
+    color: rgba(15, 110, 107, 0.035);
+    letter-spacing: 20px;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  [data-theme="dark"] .sheet::before { color: rgba(78, 205, 196, 0.03); }
+
+  /* ===================== الهيدر ===================== */
+  .head {
+    padding: 40px 48px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    background: var(--head-grad);
+    border-bottom: 3px solid var(--teal);
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s ease;
+  }
+
+  .isz-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+
+  .isz-badge {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: var(--drawer-head-grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px -6px rgba(15, 110, 107, 0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .isz-badge::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+    animation: shine 4s infinite;
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  }
+
+  .isz-text { display: flex; flex-direction: column; line-height: 1.1; }
+
+  .isz-text .isz-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--teal-deep);
+    letter-spacing: 3px;
+  }
+
+  .isz-text .isz-sub {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  html[lang="ar"] .isz-text .isz-sub { font-family: 'Cairo', sans-serif; letter-spacing: 1px; }
+
+  .head .title-block .eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  html[lang="ar"] .head .title-block .eyebrow { letter-spacing: 1px; }
+
+  .head h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .head h1 span { color: var(--teal); }
+
+  /* ===================== اسم الثانوية (شكل دائري) ===================== */
+  .school-seal {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+  }
+
+  .school-seal .seal-ring-outer {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 45deg, var(--teal-deep), var(--teal), var(--teal-deep), var(--teal), var(--teal-deep));
+    padding: 3px;
+    box-shadow: 0 10px 30px -8px rgba(15, 110, 107, 0.45);
+    animation: sealSpin 22s linear infinite;
+  }
+
+  @keyframes sealSpin { to { transform: rotate(360deg); } }
+
+  .school-seal .seal-ring-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    text-align: center;
+    animation: sealSpinReverse 22s linear infinite;
+    border: 1px dashed var(--teal);
+    position: relative;
+  }
+
+  @keyframes sealSpinReverse { to { transform: rotate(-360deg); } }
+
+  .school-seal .seal-ar {
+    font-family: 'Reem Kufi', 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--teal-deep);
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+  }
+
+  .school-seal .seal-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--teal);
+    margin: 6px 0;
+    border-radius: 2px;
+  }
+
+  .school-seal .seal-en {
+    font-family: 'Poppins', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .school-seal .seal-ornament {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(42, 161, 152, 0.6);
+  }
+
+  .school-seal .orn-1 { top: -4px; left: 50%; transform: translateX(-50%); }
+  .school-seal .orn-2 { bottom: -4px; left: 50%; transform: translateX(-50%); }
+  .school-seal .orn-3 { left: -4px; top: 50%; transform: translateY(-50%); }
+  .school-seal .orn-4 { right: -4px; top: 50%; transform: translateY(-50%); }
+
+  /* ===================== الميتا ===================== */
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+
+  html[dir="rtl"] .meta { text-align: left; }
+
+  .meta .badge {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    align-self: flex-end;
+  }
+
+  html[dir="rtl"] .meta .badge { align-self: flex-start; }
+
+  .meta .supervisor em { font-style: normal; color: var(--ink); font-weight: 600; }
+
+  /* ===================== الأزرار العلوية ===================== */
+  #langBtn, #themeBtn, #subjectsBtn {
+    position: fixed;
+    top: 20px;
+    z-index: 100;
+    border-radius: 999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s;
+    padding: 10px 18px;
+    border: none;
+  }
+
+  #langBtn {
+    inset-inline-end: 20px;
+    background: var(--teal-deep);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(15, 110, 107, 0.3);
+  }
+
+  #langBtn:hover { background: var(--teal); transform: translateY(-2px); }
+
+  #themeBtn {
+    inset-inline-end: 130px;
+    background: var(--paper);
+    color: var(--teal-deep);
+    border: 2px solid var(--teal);
+    box-shadow: 0 6px 18px rgba(15, 110, 107, 0.15);
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  #themeBtn:hover { background: var(--teal); color: #fff; transform: translateY(-2px) rotate(15deg); }
+
+  #subjectsBtn {
+    inset-inline-start: 20px;
+    background: var(--paper);
+    color: var(--teal-deep);
+    border: 2px solid var(--teal);
+    box-shadow: 0 6px 18px rgba(15, 110, 107, 0.18);
+    padding: 9px 18px;
+    gap: 8px;
+  }
+
+  #subjectsBtn:hover { background: var(--teal); color: #fff; transform: translateY(-2px); }
+
+  /* ===================== Drawer ===================== */
+  .drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 42, 55, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 200;
+  }
+
+  .drawer-backdrop.open { opacity: 1; visibility: visible; }
+
+  .drawer {
+    position: fixed;
+    top: 0;
+    inset-inline-start: 0;
+    height: 100vh;
+    height: 100dvh;
+    width: min(360px, 90vw);
+    background: var(--paper);
+    z-index: 210;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(15, 110, 107, 0.25);
+    transform: translateX(-110%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+    will-change: transform;
+  }
+
+  body.drawer-open { overflow: hidden; }
+
+  html[dir="rtl"] .drawer { transform: translateX(110%); }
+  .drawer.open,
+  html[dir="rtl"] .drawer.open { transform: translateX(0); }
+
+  .drawer-head {
+    background: var(--drawer-head-grad);
+    color: #fff;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .drawer-head h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  html[lang="ar"] .drawer-head h2 { font-family: 'Cairo', sans-serif; }
+
+  #drawerClose {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  #drawerClose:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
+
+  .drawer-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    padding: 16px 14px 24px;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .drawer-body > * { flex-shrink: 0; }
+
+  .drawer-foot {
+    flex: 0 0 auto;
+    padding: 12px 18px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--gray-break-text);
+    text-align: center;
+    background: var(--paper);
+  }
+
+  html[lang="ar"] .drawer-foot { font-family: 'Cairo', sans-serif; letter-spacing: 0; }
+
+  .drawer-body::-webkit-scrollbar { width: 6px; }
+  .drawer-body::-webkit-scrollbar-track { background: transparent; }
+  .drawer-body::-webkit-scrollbar-thumb { background: var(--teal-tint); border-radius: 3px; }
+
+  /* Accordion */
+  .drawer details {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .drawer details[open] {
+    border-color: var(--teal);
+    box-shadow: 0 4px 14px rgba(15, 110, 107, 0.12);
+  }
+
+  .drawer summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  html[lang="ar"] .drawer summary { font-family: 'Cairo', sans-serif; }
+
+  .drawer summary::-webkit-details-marker { display: none; }
+  .drawer summary:hover { background: var(--teal-tint); }
+
+  .drawer details[open] > summary {
+    background: var(--teal-tint);
+    color: var(--teal-deep);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .subj-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: var(--drawer-head-grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .subj-name { flex: 1; line-height: 1.3; }
+
+  .chev {
+    display: inline-block;
+    color: var(--teal);
+    font-size: 12px;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  [dir="rtl"] .chev { transform: scaleX(-1); }
+  .drawer details[open] .chev { transform: rotate(90deg); }
+  [dir="rtl"] .drawer details[open] .chev { transform: scaleX(-1) rotate(90deg); }
+
+  .sub-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px;
+    background: var(--mist);
+  }
+
+  .sub-links a, .site-link, .yt-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 11px 12px;
+    min-height: 42px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, padding-inline-start 0.2s;
+  }
+
+  .sub-links a:hover, .site-link:hover, .yt-link:hover {
+    background: var(--teal-tint);
+    color: var(--teal-deep);
+    padding-inline-start: 16px;
+  }
+
+  .ext { font-size: 11px; opacity: 0.6; flex-shrink: 0; }
+
+  .drawer-section-title {
+    margin-top: 10px;
+    padding: 6px 4px 2px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    border-top: 1px dashed var(--line);
+    padding-top: 16px;
+  }
+
+  html[lang="ar"] .drawer-section-title { font-family: 'Cairo', sans-serif; letter-spacing: 0.5px; }
+
+  .site-link { border: 1px solid var(--line); background: var(--paper); }
+  .yt-link { border: 1px solid var(--line); background: var(--paper); }
+
+  .more-soon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-break-text);
+    cursor: not-allowed;
+    user-select: none;
+    opacity: 0.75;
+  }
+
+  html[lang="ar"] .more-soon { font-family: 'Cairo', sans-serif; }
+
+  .more-soon small {
+    margin-inline-start: auto;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: var(--gray-break);
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+
+  /* ===================== الجدول ===================== */
+  .table-wrap { padding: 32px 40px 44px; overflow-x: auto; position: relative; z-index: 1; }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    min-width: 860px;
+    background: transparent;
+  }
+
+  th, td {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 10px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  th:first-child, td:first-child { border-left: 1px solid var(--line); }
+
+  thead th:first-child { border-top-left-radius: 12px; }
+  thead th:last-child { border-top-right-radius: 12px; }
+  tbody tr:last-child td:first-child { border-bottom-left-radius: 12px; }
+  tbody tr:last-child td:last-child { border-bottom-right-radius: 12px; }
+  tbody tr:last-child td { border-bottom: 1px solid var(--line); }
+
+  thead th {
+    background: var(--teal-deep);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 18px 10px;
+    border-right: 1px solid rgba(255,255,255,0.18);
+    border-bottom: none;
+  }
+
+  [data-theme="dark"] thead th { color: #0f1720; }
+
+  html[lang="ar"] thead th { letter-spacing: 0; font-size: 16px; }
+
+  thead th.time-head { background: #14504e; font-size: 13px; }
+  [data-theme="dark"] thead th.time-head { background: #0e5c58; color: #e8eef3; }
+
+  td.time {
+    background: var(--mist);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--teal-deep);
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    width: 132px;
+  }
+
+  td.time .slot {
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--gray-break-text);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  html[lang="ar"] td.time .slot { font-family: 'Cairo', sans-serif; letter-spacing: 0; font-size: 12px; }
+
+  td.subject { background: var(--paper); }
+  [data-theme="dark"] td.subject { background: rgba(255,255,255,0.02); }
+
+  .subject-name {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  .room {
+    display: inline-block;
+    margin-top: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--teal-tint);
+    color: var(--teal-deep);
+  }
+
+  html[lang="ar"] .room { letter-spacing: 0; font-size: 12px; }
+
+  td.practical { background: var(--blue-tint); }
+  td.practical .subject-name { color: #1e40af; }
+  td.practical .room { background: rgba(30,64,175,0.12); color: #1e40af; }
+  [data-theme="dark"] td.practical .subject-name { color: #93c5fd; }
+  [data-theme="dark"] td.practical .room { color: #93c5fd; }
+
+  td.lab { background: #e6e7fd; }
+  td.lab .subject-name { color: #4338ca; }
+  td.lab .room { background: rgba(67,56,202,0.12); color: #4338ca; }
+  [data-theme="dark"] td.lab { background: #2a2454; }
+  [data-theme="dark"] td.lab .subject-name { color: #a5b4fc; }
+  [data-theme="dark"] td.lab .room { color: #a5b4fc; }
+
+  td.pe { background: #e7f6ec; }
+  td.pe .subject-name { color: #166534; }
+  td.pe .room { background: rgba(22,101,52,0.12); color: #166534; }
+  [data-theme="dark"] td.pe { background: #1a3323; }
+  [data-theme="dark"] td.pe .subject-name { color: #86efac; }
+  [data-theme="dark"] td.pe .room { color: #86efac; }
+
+  td.empty { background: var(--mist); }
+  td.empty::after { content: "—"; color: #c2cdd6; font-size: 16px; }
+
+  tr.break-row td {
+    background: var(--gray-break);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    padding: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: var(--gray-break-text);
+    text-indent: 10px;
+  }
+
+  html[lang="ar"] tr.break-row td { letter-spacing: 4px; text-indent: 4px; }
+
+  /* ===================== الفوتر ===================== */
+  .foot {
+    padding: 18px 48px 26px;
+    font-size: 12px;
+    color: var(--gray-break-text);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid var(--line);
+    position: relative;
+    z-index: 1;
+  }
+
+  .signature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: var(--teal-deep);
+    letter-spacing: 3px;
+  }
+
+  .signature .sig-line { width: 40px; height: 2px; background: var(--teal); border-radius: 2px; }
+
+  .signature .sig-crafted {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+
+  html[lang="ar"] .signature .sig-crafted { font-family: 'Cairo', sans-serif; letter-spacing: 1px; }
+
+  /* ===================== الجوال ===================== */
+  @media (max-width: 720px) {
+    body { padding: 70px 10px 20px; }
+    .head { padding: 28px 20px 22px; gap: 18px; justify-content: center; text-align: center; }
+    .title-block { display: flex; flex-direction: column; align-items: center; }
+    .isz-logo { justify-content: center; }
+    .meta { text-align: center; align-items: center; }
+    .meta .badge { align-self: center; }
+    .table-wrap { padding: 20px 16px 28px; }
+    .foot { padding: 14px 24px 20px; justify-content: center; text-align: center; }
+    #langBtn { top: 12px; inset-inline-end: 12px; padding: 8px 14px; font-size: 13px; }
+    #themeBtn { top: 12px; inset-inline-end: 110px; width: 40px; height: 40px; font-size: 16px; }
+    #subjectsBtn { top: 12px; inset-inline-start: 12px; padding: 7px 14px; font-size: 13px; }
+    .sheet::before { font-size: 180px; }
+    .isz-badge { width: 50px; height: 50px; font-size: 17px; }
+    .isz-text .isz-title { font-size: 18px; }
+    .school-seal { width: 120px; height: 120px; }
+    .school-seal .seal-ar { font-size: 13px; }
+    .school-seal .seal-en { font-size: 8px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; display: block; }
+    .sheet { box-shadow: none; border-radius: 8px; max-width: none; width: 100%; }
+    .sheet::before { color: rgba(15, 110, 107, 0.05); }
+    .head { padding: 14px 22px 12px; }
+    .head h1 { font-size: 24px; }
+    .school-seal { width: 100px; height: 100px; }
+    .school-seal .seal-ring-outer,
+    .school-seal .seal-ring-inner { animation: none !important; }
+    .school-seal .seal-ar { font-size: 11px; }
+    .school-seal .seal-en { font-size: 7px; }
+    .table-wrap { padding: 14px 16px 16px; }
+    table { min-width: 0; }
+    th, td { padding: 8px 6px; }
+    thead th { padding: 10px 6px; font-size: 12px; }
+    .subject-name { font-size: 11px; }
+    .room { font-size: 9px; margin-top: 4px; padding: 2px 7px; }
+    td.time { font-size: 11.5px; width: 108px; }
+    td.time .slot { font-size: 9px; }
+    tr.break-row td { padding: 6px; font-size: 10px; letter-spacing: 8px; }
+    .foot { padding: 8px 22px 10px; font-size: 10px; }
+    #langBtn, #themeBtn, #subjectsBtn, .drawer, .drawer-backdrop { display: none !important; }
+    .isz-badge { width: 44px; height: 44px; font-size: 15px; }
+    .isz-text .isz-title { font-size: 16px; }
+    .isz-text .isz-sub { font-size: 8px; }
+    .isz-badge::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- أزرار علوية -->
+<button id="langBtn" type="button">
+  <span>🌐</span>
+  <span id="langLabel">العربية</span>
+</button>
+
+<button id="themeBtn" type="button" title="Dark / Light" aria-label="Toggle theme">🌙</button>
+
+<button id="subjectsBtn" type="button">
+  <span>📚</span>
+  <span id="subjectsBtnLabel">Subjects</span>
+</button>
+
+<!-- Drawer -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+<aside class="drawer" id="subjectsDrawer" aria-hidden="true">
+  <div class="drawer-head">
+    <h2><span>📚</span><span id="drawerTitle">Subjects</span></h2>
+    <button id="drawerClose" type="button" aria-label="Close">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <footer class="drawer-foot">
+    <span data-en="ISZ · Weekly Class Schedule" data-ar="ISZ · الجدول الأسبوعي للحصص">ISZ · Weekly Class Schedule</span>
+  </footer>
+</aside>
+
+<!-- الشيت -->
+<main class="sheet">
+  <header class="head">
+    <div class="title-block">
+      <div class="isz-logo">
+        <div class="isz-badge">ISZ</div>
+        <div class="isz-text">
+          <span class="isz-title">ISZ</span>
+          <span class="isz-sub" data-en="Crafted By" data-ar="صنع بواسطة">Crafted By</span>
+        </div>
+      </div>
+      <div class="eyebrow" data-en="Academic Year Timetable" data-ar="الجدول الزمني للسنة الدراسية">Academic Year Timetable</div>
+      <h1>
+        <span data-en="Weekly " data-ar="الجدول ">Weekly </span>
+        <span data-en="Class Schedule" data-ar="الأسبوعي للحصص">Class Schedule</span>
+      </h1>
+    </div>
+
+    <!-- اسم الثانوية بشكل دائري -->
+    <div class="school-seal" aria-label="School Seal">
+      <div class="seal-ring-outer">
+        <div class="seal-ring-inner">
+          <span class="seal-ar" data-en="Oukraf Mohamed High School" data-ar="ثانوية أوكراف محمد">ثانوية أوكراف محمد</span>
+          <span class="seal-divider"></span>
+          <span class="seal-en" data-en="ثانوية أوكراف محمد" data-ar="Oukraf Mohamed High School">Oukraf Mohamed High School</span>
+        </div>
+      </div>
+      <span class="seal-ornament orn-1"></span>
+      <span class="seal-ornament orn-2"></span>
+      <span class="seal-ornament orn-3"></span>
+      <span class="seal-ornament orn-4"></span>
+    </div>
+
+    <div class="meta">
+      <span class="badge" data-en="Class Size: 33" data-ar="عدد التلاميذ: 33">Class Size: 33</span>
+      <span class="supervisor">
+        <span data-en="Supervisor: " data-ar="المشرفة على القسم: ">Supervisor: </span>
+        <em data-en="Natural Sciences Teacher" data-ar="أستاذة العلوم الطبيعية">Natural Sciences Teacher</em>
+      </span>
+    </div>
+  </header>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="time-head" data-en="Time" data-ar="الوقت">Time</th>
+          <th data-en="Sunday" data-ar="الأحد">Sunday</th>
+          <th data-en="Monday" data-ar="الاثنين">Monday</th>
+          <th data-en="Tuesday" data-ar="الثلاثاء">Tuesday</th>
+          <th data-en="Wednesday" data-ar="الأربعاء">Wednesday</th>
+          <th data-en="Thursday" data-ar="الخميس">Thursday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="time"><span class="slot" data-en="Period 1" data-ar="الحصة 1">Period 1</span>08:00 – 09:00</td>
+          <td class="subject practical"><span class="subject-name" data-en="Practical (P)" data-ar="أعمال تطبيقية (P)">Practical (P)</span></td>
+          <td class="subject"><span class="subject-name" data-en="French Language" data-ar="اللغة الفرنسية">French Language</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Arabic Language &amp; Literature" data-ar="اللغة العربية وآدابها">Arabic Language &amp; Literature</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="History &amp; Geography" data-ar="التاريخ والجغرافيا">History &amp; Geography</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Arabic Language &amp; Literature" data-ar="اللغة العربية وآدابها">Arabic Language &amp; Literature</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+        </tr>
+        <tr>
+          <td class="time"><span class="slot" data-en="Period 2" data-ar="الحصة 2">Period 2</span>09:00 – 10:00</td>
+          <td class="subject practical"><span class="subject-name" data-en="Practical (P)" data-ar="أعمال تطبيقية (P)">Practical (P)</span></td>
+          <td class="subject"><span class="subject-name" data-en="History &amp; Geography" data-ar="التاريخ والجغرافيا">History &amp; Geography</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Physics" data-ar="الفيزياء">Physics</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="English Language" data-ar="اللغة الإنجليزية">English Language</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Islamic Sciences" data-ar="العلوم الإسلامية">Islamic Sciences</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+        </tr>
+        <tr class="break-row"><td colspan="6" data-en="B R E A K" data-ar="ا س ت ر ا ح ة">B R E A K</td></tr>
+        <tr>
+          <td class="time"><span class="slot" data-en="Period 3" data-ar="الحصة 3">Period 3</span>10:00 – 11:00</td>
+          <td class="subject practical"><span class="subject-name" data-en="Practical (P)" data-ar="أعمال تطبيقية (P)">Practical (P)</span></td>
+          <td class="subject"><span class="subject-name" data-en="Mathematics" data-ar="الرياضيات">Mathematics</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Natural &amp; Life Sciences" data-ar="العلوم الطبيعية والحياة">Natural &amp; Life Sciences</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Mathematics" data-ar="الرياضيات">Mathematics</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Physics" data-ar="الفيزياء">Physics</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+        </tr>
+        <tr</>
+          <td class="time"><span class="slot" data-en="Period 4" data-ar="الحصة 4">Period 4</span>11:00 – 12:00td>
+          <td class="subject practical"><span class="subject-name" data-en="Practical (P)" data-ar="أعمال تطبيقية (P)">Practical (P)</span></td>
+          <td class="subject"><span class="subject-name" data-en="Mathematics" data-ar="الرياضيات">Mathematics</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Natural &amp; Life Sciences" data-ar="العلوم الطبيعية والحياة">Natural &amp; Life Sciences</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Mathematics" data-ar="الرياضيات">Mathematics</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="English Language" data-ar="اللغة الإنجليزية">English Language</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+        </tr>
+        <tr>
+          <td class="time"><span class="slot" data-en="Period 5" data-ar="الحصة 5">Period 5</span>13:30 – 14:30</td>
+          <td class="subject"><span class="subject-name" data-en="Mathematics" data-ar="الرياضيات">Mathematics</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject lab"><span class="subject-name" data-en="Computer Lab (IT)" data-ar="مخبر الإعلام الآلي (IT)">Computer Lab (IT)</span></td>
+          <td class="empty"></td>
+          <td class="subject"><span class="subject-name" data-en="French Language" data-ar="اللغة الفرنسية">French Language</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="French Language" data-ar="اللغة الفرنسية">French Language</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+        </tr>
+        <tr>
+          <td class="time"><span class="slot" data-en="Period 6" data-ar="الحصة 6">Period 6</span>14:30 – 15:30</td>
+          <td class="subject"><span class="subject-name" data-en="Mathematics" data-ar="الرياضيات">Mathematics</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject lab"><span class="subject-name" data-en="Computer Lab (IT)" data-ar="مخبر الإعلام الآلي (IT)">Computer Lab (IT)</span></td>
+          <td class="empty"></td>
+          <td class="subject"><span class="subject-name" data-en="Arabic Language &amp; Literature" data-ar="اللغة العربية وآدابها">Arabic Language &amp; Literature</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Art Education" data-ar="التربية الفنية">Art Education</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+        </tr>
+        <tr class="break-row"><td colspan="6" data-en="B R E A K" data-ar="ا س ت ر ا ح ة">B R E A K</td></tr>
+        <tr>
+          <td class="time"><span class="slot" data-en="Period 7" data-ar="الحصة 7">Period 7</span>15:30 – 16:30</td>
+          <td class="subject pe"><span class="subject-name" data-en="Physical Education &amp; Sports" data-ar="التربية البدنية والرياضية">Physical Education &amp; Sports</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="English Language" data-ar="اللغة الإنجليزية">English Language</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="empty"></td>
+          <td class="empty"></td>
+          <td class="subject"><span class="subject-name" data-en="Arabic Language &amp; Literature" data-ar="اللغة العربية وآدابها">Arabic Language &amp; Literature</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+        </tr>
+        <tr>
+          <td class="time"><span class="slot" data-en="Period 8" data-ar="الحصة 8">Period 8</span>16:30 – 17:30</td>
+          <td class="subject pe"><span class="subject-name" data-en="Physical Education &amp; Sports" data-ar="التربية البدنية والرياضية">Physical Education &amp; Sports</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="subject"><span class="subject-name" data-en="Art Education" data-ar="التربية الفنية">Art Education</span><span class="room" data-en="Room 4" data-ar="قاعة 4">Room 4</span></td>
+          <td class="empty"></td>
+          <td class="empty"></td>
+          <td class="empty"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="foot">
+    <span data-en="P = Practical Session · IT = Computer Lab" data-ar="P = حصة تطبيقية · IT = مخبر الإعلام الآلي">P = Practical Session · IT = Computer Lab</span>
+    <div class="signature">
+      <span class="sig-line"></span>
+      <span class="sig-crafted" data-en="Crafted By" data-ar="صنع بواسطة">Crafted By</span>
+      <span>ISZ</span>
+      <span class="sig-line"></span>
+    </div>
+    <span data-en="Weekly Timetable · Sunday – Thursday" data-ar="الجدول الأسبوعي · الأحد – الخميس">Weekly Timetable · Sunday – Thursday</span>
+  </footer>
+</main>
+
+<script>
+/* ============================================================
+   بيانات المواد — عدّل الروابط من هنا
+   ============================================================ */
+const SUBJECTS = [
+  {
+    icon: '📖',
+    ar: 'اللغة العربية', en: 'Arabic Language',
+    links: [
+      { ar: 'الدروس',                en: 'Lessons',             url: 'https://www.dzexams.com/ar/1as/arabe' },
+      { ar: 'كتاب اللغة العربية',    en: 'Textbook',            url: 'https://www.taalimtice.dz' },
+      { ar: 'حلول التمارين',         en: 'Exercise Solutions',  url: 'https://www.dzexams.com/ar/1as/arabe' },
+      { ar: 'تحضيرات النصوص',        en: 'Text Preparation',    url: 'https://www.dzexams.com/ar/1as/arabe' }
+    ]
+  },
+  {
+    icon: '➗',
+    ar: 'الرياضيات', en: 'Mathematics',
+    links: [
+      { ar: 'الدروس',        en: 'Lessons',            url: 'https://www.dzexams.com/ar/1as/mathematiques' },
+      { ar: 'الكتاب',        en: 'Textbook',           url: 'https://www.taalimtice.dz' },
+      { ar: 'حلول التمارين', en: 'Exercise Solutions', url: 'https://www.dzexams.com/ar/1as/mathematiques' }
+    ]
+  },
+  {
+    icon: '⚛️',
+    ar: 'الفيزياء', en: 'Physics',
+    links: [
+      { ar: 'الدروس',        en: 'Lessons',            url: 'https://www.dzexams.com/ar/1as/physique' },
+      { ar: 'الكتاب',        en: 'Textbook',           url: 'https://www.taalimtice.dz' },
+      { ar: 'حلول التمارين', en: 'Exercise Solutions', url: 'https://www.dzexams.com/ar/1as/physique' }
+    ]
+  },
+  {
+    icon: '🧬',
+    ar: 'علوم الطبيعة والحياة', en: 'Natural & Life Sciences',
+    links: [
+      { ar: 'الدروس',        en: 'Lessons',            url: 'https://www.dzexams.com/ar/1as/sciences-naturelles' },
+      { ar: 'الكتاب',        en: 'Textbook',           url: 'https://www.taalimtice.dz' },
+      { ar: 'حلول التمارين', en: 'Exercise Solutions', url: 'https://www.dzexams.com/ar/1as/sciences-naturelles' }
+    ]
+  },
+  {
+    icon: '🥖',
+    ar: 'اللغة الفرنسية', en: 'French Language',
+    links: [
+      { ar: 'الدروس',        en: 'Lessons',            url: 'https://www.dzexams.com/ar/1as/francais' },
+      { ar: 'الكتاب',        en: 'Textbook',           url: 'https://www.taalimtice.dz' },
+      { ar: 'حلول التمارين', en: 'Exercise Solutions', url: 'https://www.dzexams.com/ar/1as/francais' }
+    ]
+  },
+  {
+    icon: '💬',
+    ar: 'اللغة الإنجليزية', en: 'English Language',
+    links: [
+      { ar: 'الدروس',        en: 'Lessons',            url: 'https://www.dzexams.com/ar/1as/anglais' },
+      { ar: 'الكتاب',        en: 'Textbook',           url: 'https://www.taalimtice.dz' },
+      { ar: 'حلول التمارين', en: 'Exercise Solutions', url: 'https://www.dzexams.com/ar/1as/anglais' }
+    ]
+  },
+  {
+    icon: '💻',
+    ar: 'الإعلام الآلي', en: 'Computer Science',
+    links: [
+      { ar: 'الدروس',        en: 'Lessons',            url: 'https://www.dzexams.com/ar/1as/informatique' },
+      { ar: 'الكتاب',        en: 'Textbook',           url: 'https://www.taalimtice.dz' },
+      { ar: 'حلول التمارين', en: 'Exercise Solutions', url: 'https://www.dzexams.com/ar/1as/informatique' }
+    ]
+  },
+  {
+    icon: '🌍',
+    ar: 'التاريخ والجغرافيا', en: 'History & Geography',
+    links: [
+      { ar: 'الدروس',        en: 'Lessons',            url: 'https://www.dzexams.com/ar/1as/histoire-geographie' },
+      { ar: 'الكتاب',        en: 'Textbook',           url: 'https://www.taalimtice.dz' },
+      { ar: 'حلول التمارين', en: 'Exercise Solutions', url: 'https://www.dzexams.com/ar/1as/histoire-geographie' }
+    ]
+  }
+];
+
+/* مواقع إضافية للتدريب */
+const EXTRA_SITES = [
+  {
+    icon: '📝',
+    ar: 'Elkhadra — بنك مواضيع مصححة',
+    en: 'Elkhadra — Corrected Exams Bank',
+    url: 'https://exams.elkhadra.com/fr/es/1as/tcst-devoirs-et-examens-1ere-annee-secondaire/'
+  },
+  {
+    icon: '📋',
+    ar: 'Ecole Opiniâtre — فروض واختبارات',
+    en: 'Ecole Opiniâtre — Tests & Exams',
+    url: 'https://ecoleopiniatre.com/category/examens/lycee/1as/'
+  }
+];
+
+/* أفضل الأساتذة على يوتيوب — روابط بحث جاهزة */
+const TEACHERS = [
+  {
+    icon: '➗',
+    ar: 'الرياضيات', en: 'Mathematics',
+    teachers: [
+      { ar: 'الأستاذ زكرياء — شرح منهجي', en: 'Prof. Zakaria — Structured Lessons', q: 'الأستاذ زكرياء رياضيات 1AS جيل ثاني' },
+      { ar: 'قناة الأستاذ للرياضيات (1AS)', en: 'Math Channel (1AS)', q: 'الرياضيات 1AS جيل ثاني قناة' }
+    ]
+  },
+  {
+    icon: '⚛️',
+    ar: 'الفيزياء', en: 'Physics',
+    teachers: [
+      { ar: 'الأستاذ عبد الله — سلسلة شاملة', en: 'Prof. Abdellah — Full Series', q: 'الأستاذ عبد الله فيزياء 1AS' },
+      { ar: 'محمد صالح قويدر (Salih prof physique)', en: 'Mohamed Saleh Guidder', q: 'محمد صالح قويدر فيزياء 1AS' }
+    ]
+  },
+  {
+    icon: '🧬',
+    ar: 'علوم الطبيعة والحياة', en: 'Natural & Life Sciences',
+    teachers: [
+      { ar: 'الأستاذة كتفي شريف زينة', en: 'Prof. Ketfi Cherif Zina', q: 'كتفي شريف زينة علوم 1AS' }
+    ]
+  },
+  {
+    icon: '📖',
+    ar: 'اللغة العربية', en: 'Arabic Language',
+    teachers: [
+      { ar: 'الأستاذ بوبكر مبروك', en: 'Prof. Boubakeur Mabrouk', q: 'بوبكر مبروك لغة عربية 1AS' },
+      { ar: 'الأستاذ جمال — مراجعات شاملة', en: 'Prof. Jamal — Full Reviews', q: 'الأستاذ جمال أدب عربي 1AS' }
+    ]
+  },
+  {
+    icon: '💬',
+    ar: 'اللغة الإنجليزية', en: 'English Language',
+    teachers: [
+      { ar: 'English with FethAllah', en: 'English with FethAllah', q: 'English with FethAllah 1AS' }
+    ]
+  },
+  {
+    icon: '🥖',
+    ar: 'اللغة الفرنسية', en: 'French Language',
+    teachers: [
+      { ar: 'ابحث مباشرة في يوتيوب', en: 'Search directly on YouTube', q: 'اللغة الفرنسية 1AS الجزائر' }
+    ]
+  },
+  {
+    icon: '💻',
+    ar: 'الإعلام الآلي', en: 'Computer Science',
+    teachers: [
+      { ar: 'ابحث مباشرة في يوتيوب', en: 'Search directly on YouTube', q: 'إعلام آلي 1AS الجزائر' }
+    ]
+  },
+  {
+    icon: '🌍',
+    ar: 'التاريخ والجغرافيا', en: 'History & Geography',
+    teachers: [
+      { ar: 'ابحث مباشرة في يوتيوب', en: 'Search directly on YouTube', q: 'تاريخ وجغرافيا 1AS الجزائر' }
+    ]
+  }
+];
+
+/* ============================================================
+   رسم القائمة الجانبية
+   ============================================================ */
+function renderDrawer() {
+  const ar = document.documentElement.lang === 'ar';
+  const t = (o) => ar ? o.ar : o.en;
+
+  let html = '';
+
+  /* المواد */
+  SUBJECTS.forEach((s, i) => {
+    html += `
+      <details class="subject-item" ${i === 0 ? 'open' : ''}>
+        <summary>
+          <span class="subj-icon">${s.icon}</span>
+          <span class="subj-name">${t(s)}</span>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="sub-links">
+          ${s.links.map(l => `
+            <a href="${l.url}" target="_blank" rel="noopener">
+              <span>${t(l)}</span><span class="ext">↗</span>
+            </a>`).join('')}
+        </div>
+      </details>`;
+  });
+
+  /* مواقع إضافية */
+  html += `<div class="drawer-section-title">${ar ? 'مواقع إضافية للتدريب' : 'Extra Practice Sites'}</div>`;
+  EXTRA_SITES.forEach(s => {
+    html += `
+      <a class="site-link" href="${s.url}" target="_blank" rel="noopener">
+        <span>${s.icon} ${t(s)}</span><span class="ext">↗</span>
+      </a>`;
+  });
+
+  /* أفضل الأساتذة على يوتيوب */
+  html += `<div class="drawer-section-title">${ar ? '🎥 أفضل الأساتذة على يوتيوب' : '🎥 Best Teachers on YouTube'}</div>`;
+  TEACHERS.forEach(subj => {
+    html += `
+      <details class="subject-item">
+        <summary>
+          <span class="subj-icon">${subj.icon}</span>
+          <span class="subj-name">${t(subj)}</span>
+          <span class="chev">▸</span>
+        </summary>
+        <div class="sub-links">
+          ${subj.teachers.map(tt => `
+            <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(tt.q)}" target="_blank" rel="noopener">
+              <span>▶️ ${t(tt)}</span><span class="ext">↗</span>
+            </a>`).join('')}
+        </div>
+      </details>`;
+  });
+
+  /* مزيد من المواد */
+  html += `
+    <div class="more-soon">
+      <span>➕</span>
+      <span>${ar ? 'مزيد من المواد' : 'More Subjects'}</span>
+      <small>${ar ? 'قريبًا' : 'Coming soon'}</small>
+    </div>`;
+
+  document.getElementById('drawerBody').innerHTML = html;
+
+  document.querySelectorAll('#drawerBody details').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (d.open) d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  document.getElementById('drawerTitle').textContent = ar ? 'المواد' : 'Subjects';
+  document.getElementById('subjectsBtnLabel').textContent = ar ? 'المواد' : 'Subjects';
+}
+
+/* ============================================================
+   Drawer فتح/إغلاق
+   ============================================================ */
+const drawer = document.getElementById('subjectsDrawer');
+const backdrop = document.getElementById('drawerBackdrop');
+
+function openDrawer() {
+  if (!document.getElementById('drawerBody').innerHTML.trim()) renderDrawer();
+  drawer.classList.add('open');
+  backdrop.classList.add('open');
+  drawer.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('drawer-open');
+}
+
+function closeDrawer() {
+  drawer.classList.remove('open');
+  backdrop.classList.remove('open');
+  drawer.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('drawer-open');
+}
+
+document.getElementById('langBtn').addEventListener('click', switchLang);
+document.getElementById('subjectsBtn').addEventListener('click', openDrawer);
+document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+document.getElementById('drawerBackdrop').addEventListener('click', closeDrawer);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDrawer();
+});
+
+/* ============================================================
+   تبديل اللغة
+   ============================================================ */
+function switchLang() {
+  const html = document.documentElement;
+  const isAr = html.lang === 'ar';
+
+  html.lang = isAr ? 'en' : 'ar';
+  html.dir = isAr ? 'ltr' : 'rtl';
+
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const text = isAr ? el.dataset.en : el.dataset.ar;
+    if (el.children.length === 0) el.textContent = text;
+    else el.innerHTML = text;
+  });
+
+  document.getElementById('langLabel').textContent = isAr ? 'العربية' : 'English';
+  renderDrawer();
+
+  try { localStorage.setItem('preferredLang', isAr ? 'en' : 'ar'); } catch (e) {}
+}
+
+/* ============================================================
+   Dark Mode
+   ============================================================ */
+const themeBtn = document.getElementById('themeBtn');
+
+function applyTheme(theme) {
+  const html = document.documentElement;
+  if (theme === 'dark') {
+    html.setAttribute('data-theme', 'dark');
+    themeBtn.textContent = '☀️';
+    themeBtn.setAttribute('aria-label', 'Switch to light mode');
+  } else {
+    html.removeAttribute('data-theme');
+    themeBtn.textContent = '🌙';
+    themeBtn.setAttribute('aria-label', 'Switch to dark mode');
+  }
+}
+
+themeBtn.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  applyTheme(next);
+  try { localStorage.setItem('preferredTheme', next); } catch (e) {}
+});
+
+/* ============================================================
+   التهيئة عند التحميل
+   ============================================================ */
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (localStorage.getItem('preferredLang') === 'ar') switchLang();
+    if (localStorage.getItem('preferredTheme') === 'dark') applyTheme('dark');
+  } catch (e) { /* تجاهل بأمان */ }
+});
+</script>
+
+</body>
+</html>
