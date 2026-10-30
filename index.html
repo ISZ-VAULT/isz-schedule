@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الجدول الدراسي الأسبوعي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f3557;
+    --navy-dark:#0a2740;
+    --teal:#12a594;
+    --teal-light:#e6f7f5;
+    --bg:#f4f8fb;
+    --line:#dbe6ef;
+    --text:#1d2b3a;
+    --muted:#6b7c8f;
+    --stripe:#f7fafc;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    font-family:'Cairo','Tajawal','Segoe UI',Tahoma,sans-serif;
+    background:linear-gradient(180deg,#eef5fa 0%, var(--bg) 40%, #eaf3f8 100%);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    padding:32px 16px 0;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .container{
+    width:100%;
+    max-width:1120px;
+    margin:0 auto;
+    flex:1 0 auto;
+  }
+
+  /* ===== Header ===== */
+  header.hero{
+    background:linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 55%, #106b7f 100%);
+    border-radius:18px;
+    padding:36px 28px;
+    text-align:center;
+    color:#fff;
+    box-shadow:0 14px 34px rgba(15,53,87,.22);
+    position:relative;
+    overflow:hidden;
+  }
+
+  header.hero::after{
+    content:"";
+    position:absolute;
+    inset:auto -60px -90px auto;
+    width:220px; height:220px;
+    background:radial-gradient(circle, rgba(18,165,148,.55) 0%, rgba(18,165,148,0) 70%);
+    border-radius:50%;
+  }
+
+  header.hero h1{
+    font-size:clamp(24px,4vw,38px);
+    font-weight:800;
+    letter-spacing:.5px;
+    position:relative;
+    z-index:1;
+  }
+
+  header.hero p{
+    margin-top:10px;
+    font-size:clamp(13px,2vw,16px);
+    font-weight:400;
+    color:#cfe6ef;
+    position:relative;
+    z-index:1;
+  }
+
+  .badge{
+    display:inline-block;
+    margin-bottom:14px;
+    padding:6px 16px;
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+    color:#a9f0e6;
+    background:rgba(255,255,255,.08);
+    position:relative;
+    z-index:1;
+  }
+
+  /* ===== Table ===== */
+  .table-wrap{
+    margin-top:28px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow-x:auto;
+    box-shadow:0 10px 28px rgba(15,53,87,.08);
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:760px;
+    border-spacing:0;
+  }
+
+  thead th{
+    background:var(--navy);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    padding:16px 18px;
+    text-align:right;
+    white-space:nowrap;
+    border-bottom:3px solid var(--teal);
+  }
+
+  tbody td{
+    padding:13px 18px;
+    font-size:15px;
+    border:1px solid var(--line);
+    vertical-align:middle;
+    transition:background-color .2s ease, transform .2s ease;
+  }
+
+  /* Zebra striping */
+  tbody tr:nth-child(even) td{ background:var(--stripe); }
+  tbody tr:nth-child(odd) td{ background:#fff; }
+
+  /* Hover effect */
+  tbody tr:hover td{
+    background:var(--teal-light);
+    transition:background-color .2s ease;
+  }
+  tbody tr:hover td.time{ color:var(--navy); font-weight:700; }
+
+  /* Day cell (rowspan) */
+  td.day{
+    background:linear-gradient(180deg, var(--navy) 0%, #12496f 100%) !important;
+    color:#fff;
+    font-weight:800;
+    font-size:17px;
+    text-align:center;
+    vertical-align:middle;
+    white-space:nowrap;
+    border-color:#0d3a5c;
+    width:110px;
+    letter-spacing:.3px;
+  }
+  tbody tr:hover td.day{
+    background:linear-gradient(180deg, #0d4d66 0%, var(--teal) 100%) !important;
+  }
+  td.day .day-icon{ display:block; font-size:20px; margin-bottom:4px; }
+
+  /* Time */
+  td.time{
+    font-weight:700;
+    color:var(--teal);
+    font-variant-numeric:tabular-nums;
+    white-space:nowrap;
+    width:150px;
+    direction:ltr;
+    text-align:center;
+  }
+
+  /* Activity */
+  td.activity{ font-weight:600; color:var(--navy); }
+  td.activity .emoji{ margin-inline-end:6px; }
+
+  /* Notes */
+  td.notes{
+    color:var(--muted);
+    font-size:14px;
+    font-weight:400;
+    line-height:1.7;
+  }
+
+  /* ===== Footer ===== */
+  footer{
+    margin-top:40px;
+    padding:22px 16px 26px;
+    text-align:center;
+    border-top:1px solid var(--line);
+    box-shadow:0 -6px 18px rgba(15,53,87,.06);
+  }
+
+  footer p{
+    font-size:13px;
+    font-weight:600;
+    color:var(--muted);
+    letter-spacing:.4px;
+  }
+
+  footer p span{ color:var(--navy); font-weight:800; }
+
+  /* ===== Responsive ===== */
+  @media (max-width:768px){
+    body{ padding:20px 10px 0; }
+    header.hero{ padding:26px 18px; border-radius:14px; }
+    thead th{ padding:13px 12px; font-size:14px; }
+    tbody td{ padding:11px 12px; font-size:14px; }
+    td.day{ font-size:15px; width:88px; }
+    td.time{ font-size:13px; width:120px; }
+    td.notes{ font-size:13px; }
+    .table-wrap{ margin-top:20px; border-radius:12px; }
+    table{ min-width:640px; }
+  }
+
+  @media (max-width:420px){
+    tbody td{ padding:9px 8px; font-size:13px; }
+    thead th{ padding:11px 8px; font-size:13px; }
+    table{ min-width:560px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="hero">
+    <span class="badge">🗓️ خطة أسبوعية منظمة</span>
+    <h1>الجدول الدراسي الأسبوعي</h1>
+    <p>تنظيم يومك بين الدراسة والراحة والعبادة — تابع الخطوات بالترتيب</p>
+  </header>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>اليوم</th>
+          <th>الوقت</th>
+          <th>النشاط</th>
+          <th>ملاحظات</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- ===== يوم الجمعة ===== -->
+        <tr>
+          <td class="day" rowspan="12"><span class="day-icon">🕌</span>الجمعة</td>
+          <td class="time">08:00 - 09:00</td>
+          <td class="activity"><span class="emoji">☀️</span>استيقاظ، فطور، صلاة</td>
+          <td class="notes">ابدأ يومك بنشاط</td>
+        </tr>
+        <tr>
+          <td class="time">09:00 - 10:30</td>
+          <td class="activity"><span class="emoji">📚</span>دراسة (جلسة 1)</td>
+          <td class="notes">مادة تحتاج تركيز عالي (رياضيات/فيزياء)</td>
+        </tr>
+        <tr>
+          <td class="time">10:30 - 11:00</td>
+          <td class="activity"><span class="emoji">☕</span>راحة</td>
+          <td class="notes">تمشى، اشرب حاجة، ابعد عن الشاشة</td>
+        </tr>
+        <tr>
+          <td class="time">11:00 - 12:30</td>
+          <td class="activity"><span class="emoji">📚</span>دراسة (جلسة 2)</td>
+          <td class="notes">مادة ثانية (عربية/فرنسية)</td>
+        </tr>
+        <tr>
+          <td class="time">12:30 - 14:00</td>
+          <td class="activity"><span class="emoji">🍽️</span>غداء + صلاة + راحة</td>
+          <td class="notes">ضروري جداً لترتيب الدماغ</td>
+        </tr>
+        <tr>
+          <td class="time">14:00 - 15:00</td>
+          <td class="activity"><span class="emoji">📚</span>مراجعة سريعة</td>
+          <td class="notes">مراجعة اللي درسته الصبح</td>
+        </tr>
+        <tr>
+          <td class="time">15:00 - 17:00</td>
+          <td class="activity"><span class="emoji">🏫</span>الليكور</td>
+          <td class="notes">حسب موعدك</td>
+        </tr>
+        <tr>
+          <td class="time">17:00 - 18:00</td>
+          <td class="activity"><span class="emoji">🚶</span>استراحة + صلاة</td>
+          <td class="notes">ارتاح من الليكور، تمشى شوي</td>
+        </tr>
+        <tr>
+          <td class="time">18:00 - 19:30</td>
+          <td class="activity"><span class="emoji">📚</span>دراسة (جلسة 3)</td>
+          <td class="notes">مادة خفيفة (تاريخ/جغرافيا/إسلامية)</td>
+        </tr>
+        <tr>
+          <td class="time">19:30 - 20:30</td>
+          <td class="activity"><span class="emoji">🍽️</span>عشاء + صلاة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">20:30 - 22:00</td>
+          <td class="activity"><span class="emoji">💻</span>وقت المشروع/الترفيه</td>
+          <td class="notes">تخدم على موقعك، أو تلعب، أو تتفرج</td>
+        </tr>
+        <tr>
+          <td class="time">22:00 - 08:00</td>
+          <td class="activity"><span class="emoji">😴</span>نوم</td>
+          <td class="notes">نم 8 ساعات على الأقل</td>
+        </tr>
+
+        <!-- ===== يوم السبت ===== -->
+        <tr>
+          <td class="day" rowspan="12"><span class="day-icon">📘</span>السبت</td>
+          <td class="time">08:00 - 09:00</td>
+          <td class="activity"><span class="emoji">☀️</span>استيقاظ، فطور، صلاة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">09:00 - 11:00</td>
+          <td class="activity"><span class="emoji">📚</span>دراسة (جلسة 1)</td>
+          <td class="notes">مادة تحتاج تركيز (رياضيات/فيزياء)</td>
+        </tr>
+        <tr>
+          <td class="time">11:00 - 11:30</td>
+          <td class="activity"><span class="emoji">☕</span>راحة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">11:30 - 13:00</td>
+          <td class="activity"><span class="emoji">📚</span>دراسة (جلسة 2)</td>
+          <td class="notes">مادة ثانية</td>
+        </tr>
+        <tr>
+          <td class="time">13:00 - 14:30</td>
+          <td class="activity"><span class="emoji">🍽️</span>غداء + صلاة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">14:30 - 15:00</td>
+          <td class="activity"><span class="emoji">📚</span>مراجعة سريعة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">15:00 - 17:00</td>
+          <td class="activity"><span class="emoji">🏫</span>الليكور</td>
+          <td class="notes">حسب موعدك</td>
+        </tr>
+        <tr>
+          <td class="time">17:00 - 18:00</td>
+          <td class="activity"><span class="emoji">🚶</span>استراحة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">18:00 - 19:30</td>
+          <td class="activity"><span class="emoji">📚</span>حل تمارين</td>
+          <td class="notes">تطبيق عملي على اللي درسته</td>
+        </tr>
+        <tr>
+          <td class="time">19:30 - 20:30</td>
+          <td class="activity"><span class="emoji">🍽️</span>عشاء + صلاة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">20:30 - 22:00</td>
+          <td class="activity"><span class="emoji">💻</span>وقت حر</td>
+          <td class="notes">ترفيه، أو مشروع، أو أنمي</td>
+        </tr>
+        <tr>
+          <td class="time">22:00 - 08:00</td>
+          <td class="activity"><span class="emoji">😴</span>نوم</td>
+          <td class="notes">-</td>
+        </tr>
+
+        <!-- ===== يوم الأحد ===== -->
+        <tr>
+          <td class="day" rowspan="11"><span class="day-icon">📙</span>الأحد</td>
+          <td class="time">08:00 - 09:00</td>
+          <td class="activity"><span class="emoji">☀️</span>استيقاظ، فطور، صلاة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">09:00 - 11:00</td>
+          <td class="activity"><span class="emoji">📚</span>مراجعة شاملة</td>
+          <td class="notes">راجع كل شي درسته الجمعة والسبت</td>
+        </tr>
+        <tr>
+          <td class="time">11:00 - 11:30</td>
+          <td class="activity"><span class="emoji">☕</span>راحة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">11:30 - 13:00</td>
+          <td class="activity"><span class="emoji">📚</span>حل فروض/اختبارات</td>
+          <td class="notes">تدرب على أسئلة الامتحانات</td>
+        </tr>
+        <tr>
+          <td class="time">13:00 - 14:30</td>
+          <td class="activity"><span class="emoji">🍽️</span>غداء + صلاة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">14:30 - 17:00</td>
+          <td class="activity"><span class="emoji">📚</span>دراسة (جلسة مكثفة)</td>
+          <td class="notes">مادة تحتاج تركيز عالي</td>
+        </tr>
+        <tr>
+          <td class="time">17:00 - 18:00</td>
+          <td class="activity"><span class="emoji">🚶</span>استراحة + تحضير</td>
+          <td class="notes">تجهز لليكور</td>
+        </tr>
+        <tr>
+          <td class="time">18:00 - 20:00</td>
+          <td class="activity"><span class="emoji">🏫</span>الليكور</td>
+          <td class="notes">حسب موعدك</td>
+        </tr>
+        <tr>
+          <td class="time">20:00 - 21:00</td>
+          <td class="activity"><span class="emoji">🍽️</span>عشاء + صلاة</td>
+          <td class="notes">-</td>
+        </tr>
+        <tr>
+          <td class="time">21:00 - 22:30</td>
+          <td class="activity"><span class="emoji">📚</span>مراجعة خفيفة</td>
+          <td class="notes">قبل النوم، راجع العناوين الكبيرة فقط</td>
+        </tr>
+        <tr>
+          <td class="time">22:30 - 07:00</td>
+          <td class="activity"><span class="emoji">😴</span>نوم</td>
+          <td class="notes">نوم مبكر عشان تبدا الأسبوع بنشاط</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  <p>صنع من قبل <span>ISZ</span></p>
+</footer>
+
+</body>
+</html>
